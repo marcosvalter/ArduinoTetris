@@ -185,7 +185,7 @@ void blinkLine(unsigned char* field, unsigned char line){
     
     // assert the line value
     if (line < 0x00 || line > 0x0f) {
-        Serial.print("Error: value= ");
+        Serial.print("Error: Param= ");
         Serial.print(line, DEC);
         Serial.println(" line is out the range [0,15]");
         Serial.println("in Effects.changeLine(unsigned char* field, unsigned char line)");
@@ -214,13 +214,13 @@ void blinkLine(unsigned char* field, unsigned char line){
  * Params:
  * unsigned char* field     - source field
  * unsigned char line       - line of block to blink [0,15]
- * unsigned char collumn    - collum of block to blink
+ * unsigned char collumn    - collum of block to blink [0,7]
  */
 void blinkBlock(unsigned char* field, unsigned char line, unsigned char collumn){
     
     // assert the line value
     if (line < 0x00 || line > 0x0f) {
-        Serial.print("Error: value= ");
+        Serial.print("Error: Param= ");
         Serial.print(line, DEC);
         Serial.println(" line is out the range [0,15]");
         Serial.println("in Effects.addBlock(unsigned char* field, unsigned char line, unsigned char collumn)");
@@ -229,9 +229,9 @@ void blinkBlock(unsigned char* field, unsigned char line, unsigned char collumn)
     
     // assert the collumn value
     if (collumn < 0x00 || collumn > 0x07) {
-        Serial.print("Error: value= ");
+        Serial.print("Error: Param= ");
         Serial.print(collumn, DEC);
-        Serial.println(" collumn is out the range [0,8]");
+        Serial.println(" collumn is out the range [0,7]");
         Serial.println("in Effects.addBlock(unsigned char* field, unsigned char line, unsigned char collumn)");
         return;
     }
