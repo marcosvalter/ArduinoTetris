@@ -18,6 +18,7 @@
 #include "MatrixDisplay.h"
 #include "TRandom.h"
 #include <math.h>
+#include <Arduino.h>
 
 int bigDelay = 2000;    // big delay definition
 int smallDelay = 25;    // small delay definition
