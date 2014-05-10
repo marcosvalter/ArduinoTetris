@@ -28,6 +28,6 @@ All modules are designed from scratch including the MAXIME 7219 display driver.
 
 I'd like to thank to all who supported me including:
 
-- My mates Aléxio Simões ans José Moreira for all the C language and Linux support;
+- My mates Aléxio Simões and José Moreira for all the C language and Linux support;
 - My teachers Miguel Oliveira e Silva, Tomás Oliveira e Silva, João Rodrigues and Arnaldo Oliveira for all the know-how and headaches during the exams;
 - Mr José Vieira Simões for all technical and moral suport given :)
