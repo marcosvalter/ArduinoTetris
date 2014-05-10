@@ -20,7 +20,7 @@ Due a lack of RAM on the Arduino Nano (2048 bytes), the game has a fixed field s
 
 The game field contains the 16 display field lines plus two lines on top for playability and two on button for collision test purpose. The state of this field is set by the game itself (goDown, speed, difficultie, etc) and by the player (goLeft, goDown, goLeft and rotate). The display field is a copy of the game field minus the two top and two button lines and refreshed every 1/16 seconds (16Hz) only when the game is not paused. The game pause state is only used to stop the display refresh, allowing annimations beetween the levels.
 
-This game plays monophonic tones using the tone() function of Arduino. it generates a square wave of the specified frequency (and 50% duty cycle) on a specified pin. Intead of using the "normal" delay() function to set the time beetween notes a clock trigger and a counter that redefines itself allowing to play the game and the music "simultaneously".
+This game plays monophonic tones using the tone() function of Arduino. it generates a square wave of the specified frequency (and 50% duty cycle) on a specified pin. Intead of using the "normal" delay() function to set the time beetween notes a clock trigger and a counter that redefines itself is used allowing to play the game and the music "simultaneously".
 
 All modules are designed from scratch including the MAXIME 7219 display driver.
 
