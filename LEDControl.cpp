@@ -12,6 +12,7 @@
  * this controls the LED counters status
  */
 #include "LEDControl.h"
+#include <Arduino.h>
 
 /*
  * sets the level LED status
