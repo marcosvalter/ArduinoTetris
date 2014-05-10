@@ -63,12 +63,28 @@ unsigned char *getField();
  */
 unsigned char getTimeEnd();
 
+/*
+ * returns if game is paused
+ * Returns:     - unsigned char for game is paused
+ */
 unsigned char isGamePaused();
 
+/*
+ * returns the actual level
+ * Returns:     - unsigned char for level
+ */
 unsigned char getLevel();
 
+/*
+ * returns the actual score
+ * Returns:     - unsigned long int for score
+ */
 unsigned int getScore();
 
+/*
+ * returns the next piece num
+ * Returns:     - unsigned char for next piece
+ */
 unsigned char getNextPiece();
 
 #endif
