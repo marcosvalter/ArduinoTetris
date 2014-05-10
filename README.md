@@ -12,7 +12,7 @@ Abstract:
 
 Tetris is a very popular video game designed and programmed by Alexey Pajitnov back in the early 80's.
 In this implementation the game is represented by a 16x8 LED matrix in one color. There are 16 levels with variations of dificulty and speed. some annimations and music are also performed during the game.
-The game is written in C++ and uses an Arduino Nano as a microcontroller, two 8x8 LED Matrix (monocollor), two MAXIM 7219 7SEG controller, four press switches and a buzzer speaker.
+The game is written in C++ and uses an Arduino Nano microcontroller, two 8x8 LED Matrix (monocollor), two MAXIM 7219 7SEG controller, four press switches and a buzzer speaker.
 
 Implementation:
 
