@@ -19,7 +19,7 @@
  * sets the level LED status
  * Params:
  * unsigned char *counter       - LED status array
- * unsigned char value          - value to set
+ * unsigned char value          - value to set [0,15]
  */
 void setCounter(unsigned char *counter, unsigned char value);
 
@@ -27,7 +27,7 @@ void setCounter(unsigned char *counter, unsigned char value);
  * sets the next piece LED status
  * Params:
  * unsigned char *piece         - LED status array
- * unsigned char value          - value to set
+ * unsigned char value          - value to set [0,7]
  */
 void setPiece(unsigned char *piece, unsigned char value);
 #endif
