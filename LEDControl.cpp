@@ -17,10 +17,19 @@
  * sets the level LED status
  * Params:
  * unsigned char *counter       - LED status array
- * unsigned char value          - value to set
+ * unsigned char value          - value to set [0,15]
  */
 void setCounter(unsigned char *counter, unsigned char value) {
-    
+
+    // assert the line value
+    if (value < 0x00 || value > 0x0f) {
+        Serial.print("Error: Param= ");
+        Serial.print(value, DEC);
+        Serial.println(" value is out the range [0,15]");
+        Serial.println("in setCounter(unsigned char *counter, unsigned char value)");
+        return;
+    }
+
     counter[0] = value & 0x01;
     counter[1] = (value & 0x02) >> 1;
     counter[2] = (value & 0x04) >> 2;
@@ -31,9 +40,19 @@ void setCounter(unsigned char *counter, unsigned char value) {
  * sets the next piece LED status
  * Params:
  * unsigned char *piece         - LED status array
- * unsigned char value          - value to set
+ * unsigned char value          - value to set[0,7]
  */
 void setPiece(unsigned char *piece, unsigned char value) {
+
+    // assert the line value
+    if (value < 0x00 || value > 0x07) {
+        Serial.print("Error: Param= ");
+        Serial.print(value, DEC);
+        Serial.println(" value is out the range [0,7]");
+        Serial.println("in setPiece(unsigned char *piece, unsigned char value)");
+        return;
+    }
+
     piece[0] = value & 0x01;
     piece[1] = (value & 0x02) >> 1;
     piece[2] = (value & 0x04) >> 2;
