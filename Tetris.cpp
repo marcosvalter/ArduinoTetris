@@ -22,30 +22,30 @@
 
 /* timers and counters */
 
-unsigned char timeEnd; // inter counter limiter
-int animationDelay = 75; // delay beetween annimations (ms)
-unsigned char gamePaused = 0x00; // game paused flag
+unsigned char timeEnd;              // inter counter limiter
+int animationDelay = 75;            // delay beetween annimations (ms)
+unsigned char gamePaused = 0x00;    // game paused flag
 
 /* difficulty */
-unsigned char level = 0x00; // level [0,15] 
-unsigned char difficulty; // difficulty [0,3];
-unsigned char gameSpeed; // game speed [0,3]
+unsigned char level = 0x00;         // level [0,15] 
+unsigned char difficulty;           // difficulty [0,3];
+unsigned char gameSpeed;            // game speed [0,3]
 
 /* line counters */
-unsigned char limit = 0x11; // limit for line check
-unsigned char linesMade = 0x00; // lines made
-unsigned char goalLines = 1; // lines per level
-unsigned char pieceCount = 0; // pieces droped on the actual level
+unsigned char limit = 0x11;         // limit for line check
+unsigned char linesMade = 0x00;     // lines made
+unsigned char goalLines = 1;        // lines per level
+unsigned char pieceCount = 0;       // pieces droped on the actual level
 unsigned char launchDifficulty = 4; // launches a dificulty every n pieces
 
 // game variables
-unsigned char pieceNum; // actual piece number [0,6]
-unsigned char nextPieceNum; // next piece number [0,6]
-unsigned char piecePos; // actual piece position [0,4]
-char pieceShift; // actual piece shift (left/right) [-3,4]
-unsigned char pieceY; // actual piece Y position [0,19]
-unsigned char gameStart = 0x00; // if game is started
-unsigned char gameEnd = 0x00; // if game is ended
+unsigned char pieceNum;             // actual piece number [0,6]
+unsigned char nextPieceNum;         // next piece number [0,6]
+unsigned char piecePos;             // actual piece position [0,4]
+char pieceShift;                    // actual piece shift (left/right) [-3,4]
+unsigned char pieceY;               // actual piece Y position [0,19]
+unsigned char gameStart = 0x00;     // if game is started
+unsigned char gameEnd = 0x00;       // if game is ended
 
 /*
  * tetris pieces
@@ -111,10 +111,10 @@ unsigned char pieces[7][4][4] = {
 };
 
 // auxiliary structs
-unsigned char field[20]; // The game field. 16+4 hidden lines
-unsigned char displayField[16]; // The game field for the display
+unsigned char field[20];                                // The game field. 16+4 hidden lines
+unsigned char displayField[16];                         // The game field for the display
 unsigned char actualPiece[] = {0x00, 0x00, 0x00, 0x00}; // actual piece. used to add/subtract from field
-unsigned char tempPiece[] = {0x00, 0x00, 0x00, 0x00}; //temporary piece for collision detection purpose
+unsigned char tempPiece[] = {0x00, 0x00, 0x00, 0x00};   //temporary piece for collision detection purpose
 
 unsigned long int score = 0;
 
@@ -183,13 +183,13 @@ void generateField() {
 
     char i;
     for (i = 0; i < 18; i++) {
-        field[i] = 0x00; // the first 18 lines are empty
+        field[i] = 0x00;        // the first 18 lines are empty
     }
 
-    field[18] = 0xff; // the last 2 lines are full
-    field[19] = 0xff; // for collision detection
+    field[18] = 0xff;           // the last 2 lines are full
+    field[19] = 0xff;           // for collision detection
 
-    updateDisplayField(); // new field made, updates the display field
+    updateDisplayField();       // new field made, updates the display field
 }
 
 /*
@@ -197,9 +197,9 @@ void generateField() {
  */
 void generatePiece() {
 
-    pieceY = 0x00; // reset piece y position
-    pieceShift = 0x00; // reset piece x position
-    piecePos = 0x00; // reset piece rotate position
+    pieceY = 0x00;          // reset piece y position
+    pieceShift = 0x00;      // reset piece x position
+    piecePos = 0x00;        // reset piece rotate position
 
     if (pieceCount == launchDifficulty - 1) { // adds a dificulty if is the time for it
         pieceCount = 0;
@@ -208,9 +208,9 @@ void generatePiece() {
     }
     addDifficulty();
 
-    pieceNum = nextPieceNum; // new piece
-    nextPieceNum = tRandom(0, 7); // new piece
-    actualPiece[0] = pieces[pieceNum][0][0]; // copy piece to actual piece
+    pieceNum = nextPieceNum;                    // new piece
+    nextPieceNum = tRandom(0, 7);               // new piece
+    actualPiece[0] = pieces[pieceNum][0][0];    // copy piece to actual piece
     actualPiece[1] = pieces[pieceNum][0][1];
     actualPiece[2] = pieces[pieceNum][0][2];
     actualPiece[3] = pieces[pieceNum][0][3];
@@ -221,23 +221,23 @@ void generatePiece() {
  * Just starts a new game
  */
 void startGame() {
-    level = 0; // reset level
-    difficulty = 0; // reset difficulty level
-    gameSpeed = 0; // reset game seep level 
-    timeEnd = pow(2, 5); // sets the time endo to default (2Hz)
+    level = 0;              // reset level
+    difficulty = 0;         // reset difficulty level
+    gameSpeed = 0;          // reset game seep level 
+    timeEnd = pow(2, 5);    // sets the time endo to default (2Hz)
 
-    startLevel(); // starts a new level
-    playMusic(3);
+    startLevel();           // starts a new level
+    playMusic(3);           // plays the tetris theme
 }
 
 /* ends the game*/
 void endGame() {
-    gamePaused = 0x01;
-    stopMusic();
-    gameOver(displayField);
-    rollNumber('l', level, 10, 1000);
-    rollNumber('p', score, 10, 1000);
-    gamePaused = 0x00;
+    gamePaused = 0x01;                  // pauses the game
+    stopMusic();                        // stops the music
+    gameOver(displayField);             // shows the Game Over field
+    rollNumber('l', level, 10, 1000);   // display the level
+    rollNumber('p', score, 10, 1000);   // displays the score
+    gamePaused = 0x00;                  // unpuse the game
 
 }
 
@@ -248,27 +248,31 @@ void startLevel() {
     pieceCount = 0x00;
     gamePaused = 0x01;
 
+    // annimation beetween levels
+    // there is two annimations to show:
+    // - a simple shift of the last image to left
+    // - a shift to left with a men pushing
     if (level % 4 == 0 && level != 0) {
         playMusic(2);
         pushLeftAll(displayField);
         rollNumber('l', level, 10, 1000);
         rollNumber('p', score, 10, 1000);
-    }else{
+    } else {
         shiftLeftAll(displayField);
     }
-    
+
     playMusic(0);
     delay(1900);
     playMusic(3);
-    
-    generateField(); // new field
-    generatePiece(); // new piece
-    addPiece(); // adds the new piece to fild
-    updateDisplayField(); // updates the display field
-    limit = 0x11; // sets the checkLines limit to default
+
+    generateField();        // new field
+    generatePiece();        // new piece
+    addPiece();             // adds the new piece to fild
+    updateDisplayField();   // updates the display field
+    limit = 0x11;           // sets the checkLines limit to default
 
     gamePaused = 0x00;
- }
+}
 
 /*
  * Rotates the actual piece CCW with collision detection
@@ -287,9 +291,9 @@ void rotate() {
          * piece fits beetween the other pieces adds it to fild. else retores the original
          * piece if collides with other pieces 
          */
-        deletePiece(); // deletes the actual piece from field
-        piecePos++; // increments the piece y position
-        if (piecePos == 0x04) { // controls the rotation position range
+        deletePiece();              // deletes the actual piece from field
+        piecePos++;                 // increments the piece y position
+        if (piecePos == 0x04) {     // controls the rotation position range
             piecePos = 0x00;
         }
         tempPiece[0] = pieces[pieceNum][piecePos][0]; // updates the temp piece
@@ -312,7 +316,8 @@ void rotate() {
             actualPiece[1] = pieces[pieceNum][piecePos][1];
             actualPiece[2] = pieces[pieceNum][piecePos][2];
             actualPiece[3] = pieces[pieceNum][piecePos][3];
-
+            
+            // shifts the new piece to the last X position
             if (pieceShift < 0x00) {
                 for (i = (-1) * pieceShift; i > 0; i--) {
                     shiftLeft(actualPiece);
@@ -351,17 +356,17 @@ void goRigth() {
          * piece fits beetween the other pieces adds it to fild. else retores the original
          * piece if collides with other pieces 
          */
-        deletePiece(); // deletes the actual piece from field
-        updateTempPiece(); // updates temp piece
-        shiftRigth(tempPiece); // shifts the temp piece
-        if (isCollision() == 0x00) { // no collision? shifts the actual piece
-            shiftRigth(actualPiece); //  and adds it to the field
+        deletePiece();                  // deletes the actual piece from field
+        updateTempPiece();              // updates temp piece
+        shiftRigth(tempPiece);          // shifts the temp piece
+        if (isCollision() == 0x00) {    // no collision? shifts the actual piece
+            shiftRigth(actualPiece);    //  and adds it to the field
             addPiece();
             updateTempPiece();
             pieceShift++;
         }
-        addPiece(); // no collision? replace the actual piece on field
-        updateDisplayField(); // updates the display field
+        addPiece();                     // no collision? replace the actual piece on field
+        updateDisplayField();           // updates the display field
     }
 }
 
@@ -428,8 +433,8 @@ void goDown() {
     } else if (isCollision() != 0x00 && pieceY > 0x02) { // collision? restores the piece
         pieceY--;
         addPiece();
-        checkGame(); // game status check
-    } else { // game over
+        checkGame();        // game status check
+    } else {                // game over
         endGame();
         startGame();
     }
@@ -482,6 +487,7 @@ void updateTempPiece() {
 /*
  * returns the piece max left shift
  * please check the pieces layouts for further information and understanding
+ * Returns:     char for max left shift
  */
 char getMaxLeftShift() {
     if ((((piecePos + 1) % 4 == 0x01 || (piecePos + 1) % 4 == 0x03) &&
@@ -499,6 +505,7 @@ char getMaxLeftShift() {
 /*
  * returns the piece max rigth shift
  * please check the pieces layouts for further information and understanding
+ * Returns:     char for max rigth shift
  */
 char getMaxRigthShift() {
     if (pieceNum == 0x01 || ((piecePos + 1) % 4 == 0x03 &&
@@ -514,19 +521,21 @@ char getMaxRigthShift() {
  * checks made lines and deletes them
  */
 void checkLines() {
-  gamePaused=0x01;
+    gamePaused = 0x01;      // game paused
     char i;
     char j = 0;
+    // check lines from Y pos to limit
     for (i = pieceY; i < pieceY + 4 && i <= limit; i++) {
-        if (field[i] == 0xff) {
+        if (field[i] == 0xff) {     // full line? blink and remove
             j++;
-            blinkLine(displayField, i-2);
+            blinkLine(displayField, i - 2);
             removeLine(i);
             updateDisplayField();
             linesMade++;
         }
     }
 
+    // update de score
     switch (j) {
         case 1:
             score += 50 * (level + 1);
@@ -542,37 +551,38 @@ void checkLines() {
             break;
         default:;
     }
-    
-    gamePaused=0x00;
+
+    gamePaused = 0x00;  // unpause the game
 }
 
 /*
  * checks the game state difficulty
  */
 void checkGame() {
+    // once the piece collids with something down there can 
+    // be three options: new piece, new lever or game over
     checkLines();
-    if (linesMade >= goalLines) {
-        linesMade = 0;
-        checkEmptyLines();
-        if (level < 0x0f) {
+    if (linesMade >= goalLines) {           // reached the goal lines
+        linesMade = 0;                      // resets the lines made
+        checkEmptyLines();                  // check how many free lines are left
+        if (level < 0x0f) {                 // goal level not reached? new level
             level++;
         } else {
-            endGame();
+            endGame();                      // else end the game
         }
-        difficulty = level % 4;
-        gameSpeed = level >> 2;
-        timeEnd = pow(2, 5 - gameSpeed);
+        difficulty = level % 4;             // updates the dificculty
+        gameSpeed = level >> 2;             // updates the game speed
+        timeEnd = pow(2, 5 - gameSpeed);    // updates the time end
         startLevel();
-    } else {
+    } else {                         // goal lines not reached? new piece
         generatePiece();
         addPiece();
     }
 }
 
 /*
-    counts empty lines
+ *  counts empty lines with sound annimation
  */
-
 void checkEmptyLines() {
     gamePaused = 0x01;
     stopMusic();
@@ -595,7 +605,7 @@ void checkEmptyLines() {
 }
 
 /*
-    removes a line and shifts down the rest
+ * removes a line and shifts down the rest
  */
 void removeLine(char line) {
     char i;
@@ -605,8 +615,12 @@ void removeLine(char line) {
     field[0] = 0x00;
 }
 
+/*
+ * adds a difficulty to the game
+ * INCOMPLETE
+ */
 void addDifficulty() {
-  gamePaused=0x01;
+    gamePaused = 0x01;
     if (pieceCount % launchDifficulty == 0x00) {
         pieceCount = 0x01;
         switch (difficulty) {
@@ -623,14 +637,14 @@ void addDifficulty() {
             default:;
         }
     }
-  gamePaused=0x00;
+    gamePaused = 0x00;
 }
 
 /*
-    add a new botton line and shifts up the rest
+ * adds a new botton line and shifts up the rest
  */
 void addLine() {
-    gamePaused=0x01;
+    gamePaused = 0x01;
     char i;
     for (i = 0; i < 17; i++) {
         field[i] = field[i + 1];
@@ -639,45 +653,66 @@ void addLine() {
     updateDisplayField();
     blinkLine(displayField, 15);
     limit--;
-    gamePaused=0x00;
+    gamePaused = 0x00;
 }
 
-// add a new block
-
+/*
+ * adds a new block dificulty to the game
+ * a collumn is ramdomly choosen and the first
+ * free block of that collumn is set to ON with
+ * a blink annimation
+ */
 void addBlock() {
-  gamePaused=0x01;
-  
+    gamePaused = 0x01;
+
     char i;
     char c;
-    char collumn = tRandom(0, 8);
+    char collumn = tRandom(0, 8);   // random collumn
 
-    for (i = 17; i > 1; i--) {
+    for (i = 17; i > 1; i--) {      // find the first free block of the collumn
         c = field[i];
         c = c >> collumn;
         c &= 0x01;
         if (c == 0x00) {
-            blinkBlock(displayField, i-2, collumn);
+            blinkBlock(displayField, i - 2, collumn);       // blink annimation
             c = 0x01;
             c = c << collumn;
             field[i] |= c;
-            gamePaused=0x00;
+            gamePaused = 0x00;
             return;
         }
     }
-    gamePaused=0x00;
+    gamePaused = 0x00;
 }
 
+/*
+ * returns if game is paused
+ * Returns:     - unsigned char for game is paused
+ */
 unsigned char isGamePaused() {
     return gamePaused;
 }
 
-unsigned char getLevel(){
-  return level;
+/*
+ * returns the actual level
+ * Returns:     - unsigned char for level
+ */
+unsigned char getLevel() {
+    return level;
 }
 
-unsigned int getScorePoints(){return score;}
-
-unsigned char getNextPiece(){
-  return nextPieceNum;
+/*
+ * returns the actual score
+ * Returns:     - unsigned long int for score
+ */
+unsigned long int getScorePoints() {
+    return score;
 }
 
+/*
+ * returns the next piece num
+ * Returns:     - unsigned char for next piece
+ */
+unsigned char getNextPiece() {
+    return nextPieceNum;
+}
