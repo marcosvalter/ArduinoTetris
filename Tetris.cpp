@@ -675,7 +675,7 @@ unsigned char getLevel(){
   return level;
 }
 
-unsigned int getScorePoints(){}
+unsigned int getScorePoints(){return score;}
 
 unsigned char getNextPiece(){
   return nextPieceNum;
