@@ -24,6 +24,8 @@ This game plays monophonic tones using the tone() function of Arduino. it genera
 
 All modules are designed from scratch including the MAXIME 7219 display driver.
 
+Video demonstration:
+http://www.youtube.com/watch?v=PmkMuQTQ2EA
 
 
 I'd like to thank to all who supported me including:
