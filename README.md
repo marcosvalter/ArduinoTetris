@@ -31,5 +31,5 @@ http://www.youtube.com/watch?v=PmkMuQTQ2EA
 I'd like to thank to all who supported me including:
 
 - My mates Aléxio Simões and José Moreira for all the C language and Linux support;
-- My teachers Miguel Oliveira e Silva, Tomás Oliveira e Silva, João Rodrigues and Arnaldo Oliveira for all the know-how and headaches during the exams;
+- My teachers João Paulo Barraca, Miguel Oliveira e Silva, Tomás Oliveira e Silva, João Rodrigues and Arnaldo Oliveira for all the know-how and headaches during the exams;
 - Mr José Vieira Simões for all technical and moral suport given :)
